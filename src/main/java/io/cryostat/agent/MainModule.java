@@ -15,6 +15,7 @@
  */
 package io.cryostat.agent;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -144,7 +145,24 @@ public abstract class MainModule {
             @Named(ConfigModule.CRYOSTAT_AGENT_WEBCLIENT_TLS_TRUST_ALL) boolean trustAll) {
         try {
             if (!trustAll) {
-                return SSLContext.getDefault();
+                SSLContext sslCtx = SSLContext.getInstance(clientTlsVersion);
+
+                // initialize truststore
+                KeyStore ts = KeyStore.getInstance(KeyStore.getDefaultType());
+                ts.load(null, null);
+
+                // load truststore with certificates
+                ts.setCertificateEntry(
+                        "cryostat", loadCertificate(new File("/truststore/certificate.pem")));
+
+                // set up trust manager factory
+                TrustManagerFactory tmf =
+                        TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+                tmf.init(ts);
+
+                // set up HTTPS context
+                sslCtx.init(null, tmf.getTrustManagers(), null);
+                return sslCtx;
             }
 
             SSLContext sslCtx = SSLContext.getInstance(clientTlsVersion);
