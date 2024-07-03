@@ -15,7 +15,6 @@
  */
 package io.cryostat.agent;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -146,7 +145,7 @@ public abstract class MainModule {
         try {
             if (!trustAll) {
                 SSLContext sslCtx = SSLContext.getInstance(clientTlsVersion);
-
+                /**
                 // initialize truststore
                 KeyStore ts = KeyStore.getInstance(KeyStore.getDefaultType());
                 ts.load(null, null);
@@ -162,6 +161,7 @@ public abstract class MainModule {
 
                 // set up HTTPS context
                 sslCtx.init(null, tmf.getTrustManagers(), null);
+                */
                 return sslCtx;
             }
 
