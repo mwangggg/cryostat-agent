@@ -206,3 +206,5 @@ These properties can be set by JVM system properties or by environment variables
 `cryostat.agent.baseuri` can be set using `-Dcryostat.agent.baseuri=https://mycryostat.example.com:1234/` or
 `CRYOSTAT_AGENT_BASEURI=https://mycryostat.example.com:1234/`. See
 [here](https://smallrye.io/smallrye-config/2.11.1/config/environment-variables/) for more detail.
+
+*CI TESTING*
