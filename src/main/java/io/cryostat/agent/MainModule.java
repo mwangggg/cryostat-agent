@@ -68,6 +68,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
@@ -264,6 +265,7 @@ public abstract class MainModule {
                                 RequestConfig.custom()
                                         .setAuthenticationEnabled(true)
                                         .setExpectContinueEnabled(true)
+                                        .setCookieSpec(CookieSpecs.STANDARD)
                                         .setConnectTimeout(connectTimeout)
                                         .setSocketTimeout(responseTimeout)
                                         .build());
